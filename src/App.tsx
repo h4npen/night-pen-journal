@@ -63,7 +63,6 @@ function App() {
     setStreak(count);
   };
 
-  // 日記の保存
   const handleSaveEntry = (
     title: string,
     content: string,
@@ -85,7 +84,6 @@ function App() {
     localStorage.setItem('night_journal_entries', JSON.stringify(updatedEntries));
   };
 
-  // 学習ログの追加
   const handleAddLog = (subject: string, duration: number, memo: string) => {
     const newLog: StudyLog = {
       id: crypto.randomUUID(),
@@ -101,7 +99,6 @@ function App() {
     localStorage.setItem('night_study_logs', JSON.stringify(updatedLogs));
   };
 
-  // 泡のアニメーション要素の生成
   const bubbles = useMemo(() => {
     return Array.from({ length: 20 }).map((_, i) => {
       const size = Math.random() * 15 + 5;
@@ -113,11 +110,11 @@ function App() {
           key={i}
           className="bubble"
           style={{
-            width: \`\${size}px\`,
-            height: \`\${size}px\`,
-            left: \`\${left}%\`,
-            animationDuration: \`\${duration}s\`,
-            animationDelay: \`\${delay}s\`
+            width: `${size}px`,
+            height: `${size}px`,
+            left: `${left}%`,
+            animationDuration: `${duration}s`,
+            animationDelay: `${delay}s`
           }}
         />
       );
@@ -126,22 +123,18 @@ function App() {
 
   return (
     <div className="min-h-screen text-slate-100 flex relative overflow-hidden bg-deepsea-900">
-      {/* キラキラとした深海の泡アニメーション */}
       <div className="bubbles-container z-0">
         {bubbles}
       </div>
 
-      {/* サイドバー */}
       <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} streak={streak} />
 
-      {/* メインコンテンツエリア */}
       <main className="flex-1 ml-64 p-8 min-h-screen relative z-10">
         {activeTab === 'journal' && <Journal onSaveEntry={handleSaveEntry} />}
         {activeTab === 'tracker' && <Tracker logs={logs} onAddLog={handleAddLog} />}
         {activeTab === 'library' && <Library entries={entries} logs={logs} />}
       </main>
 
-      {/* ユーティリティインラインスタイル */}
       <style>{`
         .animate-spin-slow {
           animation: spin 10s infinite linear;
