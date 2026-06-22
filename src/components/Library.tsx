@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { JournalEntry, StudyLog } from '../types';
-import { Book, Calendar, Clock, Sparkles, X, ChevronRight } from 'lucide-react';
+import type { JournalEntry, StudyLog } from '../types';
+import { Book, Calendar, Sparkles, X, ChevronRight } from 'lucide-react';
 
 interface LibraryProps {
   entries: JournalEntry[];

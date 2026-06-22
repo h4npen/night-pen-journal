@@ -1,5 +1,5 @@
 import React from 'react';
-import { PenTool, Compass, BookOpen, Settings, LogOut, Sun } from 'lucide-react';
+import { PenTool, Compass, BookOpen, Settings, Sun } from 'lucide-react';
 
 interface SidebarProps {
   activeTab: string;

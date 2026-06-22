@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StudyLog } from '../types';
+import type { StudyLog } from '../types';
 import { Plus, BookOpen, Clock, Calendar, Sparkles } from 'lucide-react';
 
 interface TrackerProps {
@@ -108,7 +108,7 @@ export const Tracker: React.FC<TrackerProps> = ({ logs, onAddLog }) => {
           </svg>
 
           {/* 各日の星 */}
-          {recentDays.map((day, index) => {
+          {recentDays.map((day) => {
             const dateLogs = getLogsForDate(day.date);
             const totalDuration = getTotalDurationForDate(day.date);
             const hasStudy = totalDuration > 0;

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { JournalEntry } from '../types';
-import { Sparkles, Save, BookOpen, Layers, Edit3, ChevronRight, HelpCircle, Eye, EyeOff } from 'lucide-react';
+import { Sparkles, Save, Edit3, ChevronRight, HelpCircle, Eye, EyeOff } from 'lucide-react';
 
 interface JournalProps {
   onSaveEntry: (title: string, content: string, mood: string, prompts: { question: string; answer: string }[]) => void;

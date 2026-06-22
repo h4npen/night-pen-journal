@@ -3,7 +3,7 @@ import { Sidebar } from './components/Sidebar';
 import { Journal } from './components/Journal';
 import { Tracker } from './components/Tracker';
 import { Library } from './components/Library';
-import { JournalEntry, StudyLog } from './types';
+import type { JournalEntry, StudyLog } from './types';
 
 function App() {
   const [activeTab, setActiveTab] = useState<string>('journal');
