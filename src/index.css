@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Serif+JP:wght@300;400;600&family=Outfit:wght@300;400;500;600&display=swap');
+
+:root {
+  font-family: 'Inter', 'Noto Serif JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  font-weight: 400;
+
+  color-scheme: dark;
+  color: #e2e8f0;
+  background-color: #060913;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: radial-gradient(circle at 50% 50%, #0c152b 0%, #060913 100%);
+  position: relative;
+}
+
+/* 星空の背景効果 */
+body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+    radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+    radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px);
+  background-size: 550px 550px, 350px 350px, 250px 250px;
+  background-position: 0 0, 40px 60px, 130px 270px;
+  opacity: 0.25;
+  z-index: 0;
+  pointer-events: none;
+  animation: starBlink 8s infinite linear;
+}
+
+@keyframes starBlink {
+  0% { opacity: 0.2; }
+  50% { opacity: 0.35; }
+  100% { opacity: 0.2; }
+}
+
+/* カスタムスクールバー */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ガラスモーフィズムの共通ユーティリティ */
+.glass-panel {
+  background: rgba(13, 20, 38, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(212, 175, 55, 0.3);
+  transform: translateY(-2px);
+}
+
+/* 明朝体クラス */
+.serif-text {
+  font-family: 'Noto Serif JP', serif;
+}
+
+/* 原稿用紙風デザイン */
+.genko-paper {
+  background-color: #faf8f5;
+  color: #2b2b2b;
+  border: 2px solid #c7a75c;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  background-image: 
+    linear-gradient(rgba(199, 167, 92, 0.2) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(199, 167, 92, 0.2) 1px, transparent 1px);
+  background-size: 24px 24px;
+  line-height: 24px;
+}
+
+/* フェードインアニメーション */
+.fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
