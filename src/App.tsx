@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Sidebar } from './components/Sidebar';
 import { Journal } from './components/Journal';
 import { Tracker } from './components/Tracker';
@@ -32,7 +32,6 @@ function App() {
       return;
     }
 
-    // 重複を除いた学習日（降順ソート）
     const uniqueDates = Array.from(new Set(currentLogs.map((log) => log.date))).sort(
       (a, b) => new Date(b).getTime() - new Date(a).getTime()
     );
@@ -40,7 +39,6 @@ function App() {
     const todayStr = new Date().toISOString().split('T')[0];
     const yesterdayStr = new Date(Date.now() - 86400000).toISOString().split('T')[0];
 
-    // 最新の学習日が今日または昨日でない場合、ストリークは0
     if (uniqueDates[0] !== todayStr && uniqueDates[0] !== yesterdayStr) {
       setStreak(0);
       return;
@@ -54,12 +52,11 @@ function App() {
       const diffTime = Math.abs(expectedDate.getTime() - currentDate.getTime());
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-      // 日付が連続しているかチェック (初回のループは diffDays = 0)
       if (diffDays <= 1) {
         count++;
-        expectedDate = currentDate; // 次の比較対象を更新
+        expectedDate = currentDate;
       } else {
-        break; // 連続が途切れた
+        break;
       }
     }
 
@@ -104,11 +101,35 @@ function App() {
     localStorage.setItem('night_study_logs', JSON.stringify(updatedLogs));
   };
 
+  // 泡のアニメーション要素の生成
+  const bubbles = useMemo(() => {
+    return Array.from({ length: 20 }).map((_, i) => {
+      const size = Math.random() * 15 + 5;
+      const left = Math.random() * 100;
+      const duration = Math.random() * 15 + 10;
+      const delay = Math.random() * 15;
+      return (
+        <div
+          key={i}
+          className="bubble"
+          style={{
+            width: \`\${size}px\`,
+            height: \`\${size}px\`,
+            left: \`\${left}%\`,
+            animationDuration: \`\${duration}s\`,
+            animationDelay: \`\${delay}s\`
+          }}
+        />
+      );
+    });
+  }, []);
+
   return (
-    <div className="min-h-screen text-slate-100 flex relative">
-      {/* 流星（アニメーション装飾） */}
-      <div className="absolute top-20 right-40 w-[2px] h-[2px] bg-white rounded-full opacity-0 pointer-events-none animate-shooting-star" style={{ animationDelay: '2s' }} />
-      <div className="absolute top-40 right-[60%] w-[1.5px] h-[1.5px] bg-white rounded-full opacity-0 pointer-events-none animate-shooting-star" style={{ animationDelay: '7s' }} />
+    <div className="min-h-screen text-slate-100 flex relative overflow-hidden bg-deepsea-900">
+      {/* キラキラとした深海の泡アニメーション */}
+      <div className="bubbles-container z-0">
+        {bubbles}
+      </div>
 
       {/* サイドバー */}
       <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} streak={streak} />
@@ -120,42 +141,14 @@ function App() {
         {activeTab === 'library' && <Library entries={entries} logs={logs} />}
       </main>
 
-      {/* CSSのインライン追加（流星アニメーション用） */}
+      {/* ユーティリティインラインスタイル */}
       <style>{`
-        @keyframes shootingStar {
-          0% {
-            transform: rotate(-45deg) translateX(0);
-            opacity: 0;
-            width: 0px;
-          }
-          10% {
-            opacity: 1;
-            width: 80px;
-          }
-          20% {
-            transform: rotate(-45deg) translateX(-150px);
-            opacity: 0;
-            width: 0px;
-          }
-          100% {
-            transform: rotate(-45deg) translateX(-150px);
-            opacity: 0;
-            width: 0px;
-          }
-        }
-        .animate-shooting-star {
-          animation: shootingStar 12s infinite linear;
-          box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.5);
-        }
         .animate-spin-slow {
           animation: spin 10s infinite linear;
         }
         @keyframes spin {
           from { transform: rotate(0deg); }
           to { transform: rotate(360deg); }
-        }
-        .writing-vertical-rl {
-          writing-mode: vertical-rl;
         }
       `}</style>
     </div>

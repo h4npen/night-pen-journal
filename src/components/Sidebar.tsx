@@ -15,22 +15,22 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, strea
   ];
 
   return (
-    <aside className="w-64 h-screen fixed left-0 top-0 glass-panel border-r border-slate-800 flex flex-col justify-between p-6 z-10">
+    <aside className="w-64 h-screen fixed left-0 top-0 glass-panel border-r border-deepsea-700 flex flex-col justify-between p-6 z-10 rounded-none rounded-r-3xl">
       <div className="flex flex-col gap-8">
         {/* ロゴ / タイトル */}
-        <div className="flex items-center gap-3 py-2 border-b border-slate-800">
-          <div className="p-2 bg-gradient-to-tr from-amber-500 to-yellow-300 rounded-lg text-slate-900 shadow-lg shadow-yellow-500/20">
+        <div className="flex items-center gap-3 py-2 border-b border-deepsea-700">
+          <div className="p-2 bg-gradient-to-tr from-biolum-blue to-biolum-cyan rounded-lg text-deepsea-950 shadow-lg shadow-biolum-cyan/30">
             <PenTool size={20} />
           </div>
           <div>
             <h1 className="text-sm font-semibold tracking-wider text-slate-100 uppercase">夜のペンと学びの庭</h1>
-            <p className="text-[10px] text-amber-400 font-medium">Night Pen & Garden</p>
+            <p className="text-[10px] text-biolum-cyan font-medium">Night Pen & Garden</p>
           </div>
         </div>
 
         {/* 継続日数ステータス */}
-        <div className="p-4 bg-slate-900/40 border border-slate-800 rounded-xl flex items-center gap-3">
-          <div className="p-2 bg-amber-500/10 rounded-lg text-amber-400">
+        <div className="p-4 bg-deepsea-950/40 border border-deepsea-700 rounded-xl flex items-center gap-3">
+          <div className="p-2 bg-biolum-cyan/10 rounded-lg text-biolum-cyan">
             <Sun size={20} className="animate-spin-slow" />
           </div>
           <div>
@@ -50,11 +50,11 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, strea
                 onClick={() => setActiveTab(item.id)}
                 className={`w-full flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300 text-left ${
                   isActive
-                    ? 'bg-gradient-to-r from-amber-500/15 to-yellow-500/5 text-amber-300 border-l-4 border-amber-400 shadow-md shadow-amber-500/5'
+                    ? 'bg-gradient-to-r from-biolum-blue/20 to-biolum-cyan/5 text-biolum-cyan border-l-4 border-biolum-cyan shadow-md shadow-biolum-cyan/10'
                     : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
                 }`}
               >
-                <Icon size={18} className={isActive ? 'text-amber-400' : 'text-slate-400'} />
+                <Icon size={18} className={isActive ? 'text-biolum-cyan drop-shadow-[0_0_5px_rgba(0,242,254,0.5)]' : 'text-slate-400'} />
                 <div>
                   <div className="text-sm font-medium">{item.name}</div>
                   <div className="text-[10px] text-slate-500 mt-0.5">{item.desc}</div>
@@ -66,7 +66,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, strea
       </div>
 
       {/* フッター */}
-      <div className="pt-4 border-t border-slate-800 flex items-center justify-between text-xs text-slate-500">
+      <div className="pt-4 border-t border-deepsea-700 flex items-center justify-between text-xs text-slate-500">
         <div>夜の書斎 v1.0.0</div>
         <div className="flex gap-2">
           <button className="hover:text-slate-300 transition-colors">

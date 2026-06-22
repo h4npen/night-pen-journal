@@ -11,9 +11,8 @@ export const Journal: React.FC<JournalProps> = ({ onSaveEntry }) => {
   const [freeContent, setFreeContent] = useState('');
   const [mood, setMood] = useState('穏やか');
   const [previewMode, setPreviewMode] = useState<'horizontal' | 'vertical'>('horizontal');
-  const [showPreview, setShowPreview] = useState(true); // PCメインのため、プレビューは標準で常時表示にする
+  const [showPreview, setShowPreview] = useState(true);
 
-  // ガイド（対話）モード用の状態
   const [currentStep, setCurrentStep] = useState(0);
   const steps = [
     {
@@ -41,7 +40,6 @@ export const Journal: React.FC<JournalProps> = ({ onSaveEntry }) => {
 
   const moods = ['穏やか', '寂しい', '嬉しい', '疲れた', '集中', 'もやもや'];
 
-  // 対話の回答から日記本文を自動生成する
   const generateGuidedContent = () => {
     return `【出来事】\n${answers[0]}\n\n【感じたこと】\n${answers[1]}\n\n【その理由】\n${answers[2]}\n\n【これからの種】\n${answers[3]}`;
   };
@@ -68,44 +66,41 @@ export const Journal: React.FC<JournalProps> = ({ onSaveEntry }) => {
 
     onSaveEntry(finalTitle, finalContent, mood, promptHistory);
 
-    // リセット
     setTitle('');
     setFreeContent('');
     setAnswers(['', '', '', '']);
     setCurrentStep(0);
-    alert('静かに本棚へ日記をしまいました。');
+    alert('静かに深海の本棚へ日記をしまいました。');
   };
 
   const currentContent = writeMode === 'guided' ? generateGuidedContent() : freeContent;
 
   return (
     <div className="flex flex-col gap-6 max-w-7xl mx-auto p-4 pb-12 fade-in">
-      {/* ヘッダー */}
       <div className="flex justify-between items-start">
         <div>
           <h2 className="text-2xl font-semibold tracking-wider text-slate-100 flex items-center gap-2">
-            <Edit3 className="text-amber-400" /> 夜のペン (ジャーナリング)
+            <Edit3 className="text-biolum-cyan" /> 夜のペン (ジャーナリング)
           </h2>
-          <p className="text-xs text-slate-400 mt-1">
-            自分の中のヤドカリ（心の声）と対話し、言葉を紡いでみましょう。PCの広い画面向けに最適化されています。
+          <p className="text-xs text-deepsea-300 mt-1">
+            自分の中のヤドカリ（心の声）と対話し、深い海の底で静かに言葉を紡いでみましょう。
           </p>
         </div>
 
-        {/* モード切り替え & プレビューの表示切替 */}
         <div className="flex items-center gap-4">
           <button
             onClick={() => setShowPreview(!showPreview)}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-900 border border-slate-800 text-slate-350 hover:text-slate-200 transition-colors"
+            className="flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-semibold bg-deepsea-900 border border-deepsea-800 text-biolum-cyan hover:text-white hover:border-biolum-cyan/50 transition-colors shadow-[0_0_10px_rgba(0,242,254,0.1)]"
           >
             {showPreview ? <EyeOff size={14} /> : <Eye size={14} />}
             <span>原稿プレビュー</span>
           </button>
           
-          <div className="flex bg-slate-900 border border-slate-800 rounded-xl p-1">
+          <div className="flex bg-deepsea-900 border border-deepsea-800 rounded-xl p-1">
             <button
               onClick={() => setWriteMode('guided')}
               className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                writeMode === 'guided' ? 'bg-amber-500/10 text-amber-300 border border-amber-500/20' : 'text-slate-400 hover:text-slate-200'
+                writeMode === 'guided' ? 'bg-biolum-cyan/10 text-biolum-cyan border border-biolum-cyan/30 shadow-[0_0_8px_rgba(0,242,254,0.2)]' : 'text-slate-400 hover:text-slate-200'
               }`}
             >
               対話ガイド
@@ -113,7 +108,7 @@ export const Journal: React.FC<JournalProps> = ({ onSaveEntry }) => {
             <button
               onClick={() => setWriteMode('free')}
               className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                writeMode === 'free' ? 'bg-amber-500/10 text-amber-300 border border-amber-500/20' : 'text-slate-400 hover:text-slate-200'
+                writeMode === 'free' ? 'bg-biolum-cyan/10 text-biolum-cyan border border-biolum-cyan/30 shadow-[0_0_8px_rgba(0,242,254,0.2)]' : 'text-slate-400 hover:text-slate-200'
               }`}
             >
               フリー記述
@@ -124,22 +119,21 @@ export const Journal: React.FC<JournalProps> = ({ onSaveEntry }) => {
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* 入力エリア */}
-        <div className={`glass-panel p-6 ${showPreview ? 'lg:col-span-5' : 'lg:col-span-12'} flex flex-col gap-6 transition-all duration-300`}>
-          {/* タイトルと気分選択 */}
+        <div className={`glass-panel p-6 ${showPreview ? 'lg:col-span-5' : 'lg:col-span-12'} flex flex-col gap-6 transition-all duration-300 border-deepsea-700/80`}>
           <div className="flex flex-col gap-4">
             <div>
-              <label className="block text-[11px] text-slate-400 mb-1">今日のタイトル</label>
+              <label className="block text-[11px] text-biolum-cyan/70 mb-1">今日のタイトル</label>
               <input
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="無題の夜"
-                className="w-full bg-slate-950/60 border border-slate-800 focus:border-amber-500/60 focus:ring-1 focus:ring-amber-500/30 rounded-xl px-4 py-2.5 text-sm text-slate-100 outline-none transition-colors"
+                className="w-full bg-deepsea-950/80 border border-deepsea-800 focus:border-biolum-cyan/60 focus:ring-1 focus:ring-biolum-cyan/50 rounded-xl px-4 py-2.5 text-sm text-slate-100 outline-none transition-all shadow-inner shadow-deepsea-900"
               />
             </div>
 
             <div>
-              <label className="block text-[11px] text-slate-400 mb-1.5">今日の心模様</label>
+              <label className="block text-[11px] text-biolum-cyan/70 mb-1.5">今日の心模様</label>
               <div className="flex flex-wrap gap-2">
                 {moods.map((m) => (
                   <button
@@ -148,8 +142,8 @@ export const Journal: React.FC<JournalProps> = ({ onSaveEntry }) => {
                     onClick={() => setMood(m)}
                     className={`px-3 py-1 rounded-lg text-xs transition-all border ${
                       mood === m
-                        ? 'bg-amber-500/10 text-amber-400 border-amber-500/30 shadow-[0_0_8px_rgba(245,158,11,0.1)]'
-                        : 'bg-transparent text-slate-400 border-slate-800 hover:border-slate-700'
+                        ? 'bg-biolum-cyan/15 text-biolum-cyan border-biolum-cyan/50 shadow-[0_0_12px_rgba(0,242,254,0.3)]'
+                        : 'bg-deepsea-900/50 text-slate-400 border-deepsea-800 hover:border-biolum-cyan/30 hover:text-biolum-cyan'
                     }`}
                   >
                     {m}
@@ -159,18 +153,18 @@ export const Journal: React.FC<JournalProps> = ({ onSaveEntry }) => {
             </div>
           </div>
 
-          <hr className="border-slate-800" />
+          <hr className="border-deepsea-800" />
 
           {/* 対話モード */}
           {writeMode === 'guided' ? (
             <div className="flex flex-col gap-4">
-              <div className="flex items-center justify-between text-xs text-slate-500">
+              <div className="flex items-center justify-between text-xs text-deepsea-300">
                 <span>ステップ {currentStep + 1} / {steps.length}</span>
-                <span className="flex items-center gap-1"><HelpCircle size={12} /> ヤドカリの問いかけ</span>
+                <span className="flex items-center gap-1 text-biolum-cyan"><HelpCircle size={12} /> ヤドカリの問いかけ</span>
               </div>
 
-              <div className="p-4 bg-amber-500/5 border border-amber-500/10 rounded-xl">
-                <p className="text-sm font-semibold text-amber-200 serif-text leading-relaxed">
+              <div className="p-4 bg-biolum-blue/5 border border-biolum-cyan/20 rounded-xl shadow-[inset_0_0_15px_rgba(0,242,254,0.05)]">
+                <p className="text-sm font-semibold text-biolum-cyan serif-text leading-relaxed">
                   「{steps[currentStep].question}」
                 </p>
               </div>
@@ -184,7 +178,7 @@ export const Journal: React.FC<JournalProps> = ({ onSaveEntry }) => {
                 }}
                 placeholder={steps[currentStep].placeholder}
                 rows={6}
-                className="w-full bg-slate-950/60 border border-slate-800 focus:border-amber-500/60 focus:ring-1 focus:ring-amber-500/30 rounded-xl px-4 py-3 text-sm text-slate-100 outline-none resize-none leading-relaxed"
+                className="w-full bg-deepsea-950/80 border border-deepsea-800 focus:border-biolum-cyan/60 focus:ring-1 focus:ring-biolum-cyan/50 rounded-xl px-4 py-3 text-sm text-slate-100 outline-none resize-none leading-relaxed transition-all shadow-inner shadow-deepsea-900"
               />
 
               <div className="flex justify-between items-center mt-2">
@@ -192,7 +186,7 @@ export const Journal: React.FC<JournalProps> = ({ onSaveEntry }) => {
                   type="button"
                   onClick={handlePrevStep}
                   disabled={currentStep === 0}
-                  className="px-4 py-2 border border-slate-800 text-slate-400 text-xs rounded-xl hover:bg-slate-900 disabled:opacity-30 disabled:pointer-events-none transition-colors"
+                  className="px-4 py-2 border border-deepsea-700 text-deepsea-300 text-xs rounded-xl hover:bg-deepsea-800 hover:text-white disabled:opacity-30 disabled:pointer-events-none transition-colors"
                 >
                   戻る
                 </button>
@@ -201,17 +195,16 @@ export const Journal: React.FC<JournalProps> = ({ onSaveEntry }) => {
                   type="button"
                   onClick={handleNextStep}
                   disabled={!answers[currentStep].trim()}
-                  className="px-4 py-2 bg-slate-800 text-amber-400 text-xs font-semibold rounded-xl hover:bg-slate-750 hover:text-amber-300 disabled:opacity-30 disabled:pointer-events-none transition-colors flex items-center gap-1"
+                  className="px-4 py-2 bg-deepsea-800 text-biolum-cyan text-xs font-semibold rounded-xl hover:bg-deepsea-700 hover:text-white hover:shadow-[0_0_10px_rgba(0,242,254,0.3)] border border-deepsea-600 disabled:opacity-30 disabled:pointer-events-none transition-all flex items-center gap-1"
                 >
-                  <span>{currentStep === steps.length - 1 ? '完了 (保存へ)' : '次へ進む'}</span>
+                  <span>{currentStep === steps.length - 1 ? '完了 (保存へ)' : '深海へ進む'}</span>
                   <ChevronRight size={14} />
                 </button>
               </div>
             </div>
           ) : (
-            /* フリー記述モード */
             <div className="flex flex-col gap-4">
-              <div className="flex justify-between items-center text-xs text-slate-500">
+              <div className="flex justify-between items-center text-xs text-deepsea-300">
                 <span>自由につづる</span>
                 <span>{freeContent.length} 文字</span>
               </div>
@@ -220,22 +213,22 @@ export const Journal: React.FC<JournalProps> = ({ onSaveEntry }) => {
                 onChange={(e) => setFreeContent(e.target.value)}
                 placeholder="静かにペンを走らせるように、心に浮かぶ言葉をそのまま書き出してみましょう..."
                 rows={14}
-                className="w-full bg-slate-950/60 border border-slate-800 focus:border-amber-500/60 focus:ring-1 focus:ring-amber-500/30 rounded-xl px-4 py-3 text-sm text-slate-100 outline-none resize-none leading-relaxed serif-text"
+                className="w-full bg-deepsea-950/80 border border-deepsea-800 focus:border-biolum-cyan/60 focus:ring-1 focus:ring-biolum-cyan/50 rounded-xl px-4 py-3 text-sm text-slate-100 outline-none resize-none leading-relaxed serif-text transition-all shadow-inner shadow-deepsea-900"
               />
             </div>
           )}
         </div>
 
-        {/* プレビュー表示エリア (原稿用紙風、PC特化) */}
+        {/* プレビュー表示エリア */}
         {showPreview && (
           <div className="flex flex-col gap-4 lg:col-span-7 fade-in w-full overflow-hidden">
             <div className="flex justify-between items-center">
-              <span className="text-xs text-amber-400 flex items-center gap-1"><Sparkles size={12} /> 机の上の原稿用紙</span>
-              <div className="flex bg-slate-900 border border-slate-800 rounded-lg p-0.5">
+              <span className="text-xs text-biolum-cyan flex items-center gap-1"><Sparkles size={12} /> 水底の原稿用紙</span>
+              <div className="flex bg-deepsea-900 border border-deepsea-800 rounded-lg p-0.5">
                 <button
                   onClick={() => setPreviewMode('horizontal')}
                   className={`px-2.5 py-1 rounded-md text-[10px] font-medium transition-colors ${
-                    previewMode === 'horizontal' ? 'bg-amber-500/10 text-amber-300' : 'text-slate-500 hover:text-slate-300'
+                    previewMode === 'horizontal' ? 'bg-biolum-cyan/15 text-biolum-cyan' : 'text-deepsea-300 hover:text-white'
                   }`}
                 >
                   横書き
@@ -243,7 +236,7 @@ export const Journal: React.FC<JournalProps> = ({ onSaveEntry }) => {
                 <button
                   onClick={() => setPreviewMode('vertical')}
                   className={`px-2.5 py-1 rounded-md text-[10px] font-medium transition-colors ${
-                    previewMode === 'vertical' ? 'bg-amber-500/10 text-amber-300' : 'text-slate-500 hover:text-slate-300'
+                    previewMode === 'vertical' ? 'bg-biolum-cyan/15 text-biolum-cyan' : 'text-deepsea-300 hover:text-white'
                   }`}
                 >
                   縦書き
@@ -251,8 +244,7 @@ export const Journal: React.FC<JournalProps> = ({ onSaveEntry }) => {
               </div>
             </div>
 
-            {/* 原稿用紙 */}
-            <div className="w-full glass-panel overflow-hidden border-slate-850">
+            <div className="w-full glass-panel overflow-hidden border-biolum-cyan/20">
               <div
                 className={`p-8 genko-paper serif-text w-full transition-all duration-300 ${
                   previewMode === 'vertical' 
@@ -262,32 +254,29 @@ export const Journal: React.FC<JournalProps> = ({ onSaveEntry }) => {
                 style={{
                   writingMode: previewMode === 'vertical' ? 'vertical-rl' : 'horizontal-tb',
                   textOrientation: 'mixed',
-                  direction: previewMode === 'vertical' ? 'rtl' : 'ltr', // 右から左へのスクロールをサポート
+                  direction: previewMode === 'vertical' ? 'rtl' : 'ltr',
                 }}
               >
-                {/* 原稿用紙風タイトル */}
-                <div className={`${previewMode === 'vertical' ? 'ml-8' : 'mb-6'} border-b border-amber-600/30 pb-2`}>
-                  <h3 className="text-lg font-bold text-slate-800 leading-normal">{title || '無題の夜'}</h3>
-                  <div className="text-xs text-slate-500 mt-1">
+                <div className={`${previewMode === 'vertical' ? 'ml-8' : 'mb-6'} border-b border-biolum-cyan/30 pb-2`}>
+                  <h3 className="text-lg font-bold text-deepsea-800 leading-normal">{title || '無題の夜'}</h3>
+                  <div className="text-xs text-deepsea-600 mt-1 font-medium">
                     心模様: {mood}
                   </div>
                 </div>
 
-                {/* 本文 */}
-                <p className="text-sm text-slate-800 leading-[32px] whitespace-pre-wrap tracking-wider">
-                  {currentContent || 'ペンが止まっています。何か言葉を置いてみましょう。'}
+                <p className="text-sm text-deepsea-800 leading-[26px] whitespace-pre-wrap tracking-wider">
+                  {currentContent || '深海の底で、言葉の泡が浮かぶのを待っています。'}
                 </p>
               </div>
             </div>
 
-            {/* 保存ボタン */}
             <button
               onClick={handleSave}
               disabled={!currentContent.trim()}
-              className="w-full py-3.5 bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-300 text-slate-950 font-bold rounded-xl text-xs flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-amber-500/20 active:scale-98 transition-all disabled:opacity-30 disabled:pointer-events-none"
+              className="w-full py-3.5 bg-gradient-to-r from-biolum-blue to-biolum-cyan text-deepsea-950 font-bold rounded-xl text-xs flex items-center justify-center gap-2 hover:shadow-[0_0_20px_rgba(0,242,254,0.4)] active:scale-98 transition-all disabled:opacity-30 disabled:pointer-events-none"
             >
               <Save size={14} />
-              <span>この日記を本棚へしまう</span>
+              <span>この日記を深海の本棚へしまう</span>
             </button>
           </div>
         )}
