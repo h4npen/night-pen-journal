@@ -68,27 +68,28 @@ body::before {
 
 /* ガラスモーフィズムの共通ユーティリティ */
 .glass-panel {
-  background: rgba(13, 20, 38, 0.6);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 16px;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  background: rgba(9, 14, 28, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5);
 }
 
 .glass-card {
   background: rgba(255, 255, 255, 0.02);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 16px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .glass-card:hover {
-  background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(212, 175, 55, 0.3);
-  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(251, 191, 36, 0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(251, 191, 36, 0.05);
 }
 
 /* 明朝体クラス */
@@ -98,23 +99,31 @@ body::before {
 
 /* 原稿用紙風デザイン */
 .genko-paper {
-  background-color: #faf8f5;
-  color: #2b2b2b;
-  border: 2px solid #c7a75c;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  background-color: #fbf9f6;
+  color: #1e293b;
+  border: 2px solid #d4af37;
+  border-radius: 8px;
+  box-shadow: inset 0 0 20px rgba(212, 175, 55, 0.05), 0 10px 30px rgba(0, 0, 0, 0.25);
+  /* 格子状の薄い罫線 */
   background-image: 
-    linear-gradient(rgba(199, 167, 92, 0.2) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(199, 167, 92, 0.2) 1px, transparent 1px);
-  background-size: 24px 24px;
-  line-height: 24px;
+    linear-gradient(rgba(212, 175, 55, 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212, 175, 55, 0.15) 1px, transparent 1px);
+  background-size: 26px 26px;
+  line-height: 26px;
+  font-size: 14px;
+}
+
+/* 縦書きモード時のスクロールバーのカスタマイズ (横スクロール用) */
+.writing-vertical-rl::-webkit-scrollbar {
+  height: 8px;
 }
 
 /* フェードインアニメーション */
 .fade-in {
-  animation: fadeIn 0.5s ease-out forwards;
+  animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
+  from { opacity: 0; transform: translateY(15px); }
   to { opacity: 1; transform: translateY(0); }
 }
